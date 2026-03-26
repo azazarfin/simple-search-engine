@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Production / Build
+client/dist/
+server/dist/
+build/
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# C++ Compilation Artifacts
+*.exe
+*.o
+*.obj
+*.out
+server/engine.exe

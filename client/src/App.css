@@ -1,0 +1,361 @@
+/**
+ * =============================================================================
+ * App.css — Component Styles for the Search Engine UI
+ * =============================================================================
+ *
+ * Layout:
+ * - Centered single-column layout, max-width 720px
+ * - Hero header with title and description
+ * - Glassmorphism search bar with animated focus ring
+ * - Result cards with hover effects
+ * - Loading spinner animation
+ */
+
+/* ── Main Container ────────────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 60px 24px 40px;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.header__icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.header__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.header__subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  font-weight: 400;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* ── Search Form ───────────────────────────────────────────────────────────── */
+
+.search-form {
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 12px;
+  padding: 6px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.search-bar__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: 14px 16px;
+  caret-color: var(--color-accent);
+}
+
+.search-bar__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-bar__button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-purple));
+  color: #fff;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.search-bar__button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px var(--color-accent-glow);
+}
+
+.search-bar__button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.search-bar__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Results Section ───────────────────────────────────────────────────────── */
+
+.results {
+  width: 100%;
+  max-width: 640px;
+}
+
+.results__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.results__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.results__count {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-card);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.results__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Result Card ───────────────────────────────────────────────────────────── */
+
+.result-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  animation: fadeSlideIn 0.3s ease forwards;
+  opacity: 0;
+}
+
+.result-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.result-card__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-purple));
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.result-card__document {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-left: 14px;
+  word-break: break-word;
+}
+
+.result-card__score-badge {
+  background: rgba(79, 140, 255, 0.12);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.result-card__label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-left: 42px;
+}
+
+/* ── Loading Spinner ───────────────────────────────────────────────────────── */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading__text {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ── Error Message ─────────────────────────────────────────────────────────── */
+
+.error {
+  width: 100%;
+  max-width: 640px;
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: fadeSlideIn 0.3s ease forwards;
+}
+
+.error__icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.error__text {
+  color: var(--color-error);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ── Empty State ───────────────────────────────────────────────────────────── */
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+}
+
+.empty-state__icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.empty-state__text {
+  font-size: 1rem;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+
+.footer {
+  margin-top: auto;
+  padding-top: 60px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .app {
+    padding: 40px 16px 32px;
+  }
+
+  .header__title {
+    font-size: 1.8rem;
+  }
+
+  .header__subtitle {
+    font-size: 0.95rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-bar__button {
+    justify-content: center;
+  }
+
+  .result-card {
+    padding: 16px;
+  }
+
+  .result-card__top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .result-card__score-badge {
+    margin-left: 42px;
+  }
+}
